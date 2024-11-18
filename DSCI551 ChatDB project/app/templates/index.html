@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatDB Query Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>ChatDB: Query Assistant</h1>
+    
+    <form id="queryForm" method="POST">
+        <label for="query">Enter your query:</label>
+        <input type="text" name="query" id="query">
+        
+        <label for="db_type">Select Database Type:</label>
+        <select name="db_type" id="db_type">
+            <option value="sql">MySQL</option>
+            <option value="nosql">MongoDB</option>
+        </select>
+        
+        <button type="submit">Submit Query</button>
+    </form>
+
+    <!-- This section will display query results -->
+    <div id="queryResults"></div>
+
+    <script>
+        document.getElementById("queryForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const query = document.getElementById("query").value;
+            const dbType = document.getElementById("db_type").value;
+
+            // Send query using Fetch API
+            fetch('/submit_query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: query, db_type: dbType })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the results
+                document.getElementById("queryResults").innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

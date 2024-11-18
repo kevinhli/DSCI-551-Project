@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatDB: Query Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <div class="background-container"></div>
+
+    <div class="content-container"> <!-- New container for the title and form -->
+        <header>
+            <h2>ChatDB: Query Assistant</h2>
+            <p>Enter your query and select the database type to retrieve results.</p>
+        </header>
+
+        <form method="POST" id="queryForm">
+            <label for="query">Enter Query <span>*</span></label>
+            <input type="text" id="query" name="query" class="query-field" placeholder="Enter your query" required>
+
+            <label for="db_type">Select Database Type <span>*</span></label>
+            <select id="db_type" name="db_type" required>
+                <option value="">Select database type</option>
+                <option value="sql">SQL</option>
+                <option value="nosql">NoSQL</option>
+            </select>
+
+            <div class="form-buttons">
+                <button type="submit">SUBMIT QUERY</button>
+                <button type="reset">CLEAR FORM</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

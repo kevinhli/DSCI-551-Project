@@ -1,15 +1,13 @@
 from flask import Flask
-from app.db import connect_mysql, connect_mongo  # Ensure db.py is in app
-from app.routes import main_routes  # Import routes
+from app.routes import main_routes  # Import the routes from routes.py
 
-app = Flask(__name__)
+# Initialize Flask app with custom static and template folder paths
+flask_app = Flask(__name__, static_folder='app/static',
+                  template_folder='app/templates')
 
-# Connect to databases
-mysql_connection = connect_mysql()
-mongo_db = connect_mongo()
+# Register routes (Blueprints)
+flask_app.register_blueprint(main_routes)
 
-# Register routes
-app.register_blueprint(main_routes)
-
+# Main entry point
 if __name__ == "__main__":
-    app.run(debug=True)
+    flask_app.run(debug=True)

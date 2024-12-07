@@ -115,7 +115,7 @@ def submit_query():
     try:
         print(f"[DEBUG] User Query Received: {user_query}, DB Type: {db_type}")
 
-        query_response = process_query(user_query)
+        query_response = process_query(user_query, db_type)
         query_pattern = query_response.get('matched_query')
 
         if not query_pattern:
